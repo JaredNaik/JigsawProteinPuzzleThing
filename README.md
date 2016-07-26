@@ -1,5 +1,7 @@
 # JigsawProteinPuzzleThing
 
+####EDIT
+
 def findOverlaps(seq):
     from lineArray import lineArray
     array=lineArray(seq)
