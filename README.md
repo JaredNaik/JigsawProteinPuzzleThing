@@ -36,3 +36,5 @@ def lineArray(filename):
     return array
 
 lineArray('testSeq.txt')
+
+#edit
