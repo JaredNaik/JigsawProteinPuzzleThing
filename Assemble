@@ -1,0 +1,73 @@
+def lineArray(filename):
+    array=[]
+    with open(filename, 'r') as file:
+        while True:
+            line=file.readline().rstrip()
+            if not line: break
+            array.append(line)
+    return array
+
+def findOverlaps(seq, k):
+    array=lineArray(seq)
+    overlaps=[]
+    i=0
+    j=1
+    temp=0
+    part=''
+    bool=True
+    result=array[k]
+    while True:
+        bool=True
+        temp=k
+        j=1
+        while j<14:
+            i=0
+            part=array[k]
+            part=part[j:15]
+            while i<len(array):
+                if bool and array[i].startswith(part) and i!=temp:
+                    overlaps.append(array[i])
+                    result+=array[i][15-j:15]
+                    bool=False
+                    k=i
+                i+=1
+            j+=1
+        if k==temp:
+            break
+    return result
+
+def findUnderlaps(seq, k):
+    array=lineArray(seq)
+    underlaps=[]
+    i=0
+    j=1
+    temp=0
+    part=''
+    bool=True
+    while True:
+        bool=True
+        temp=k
+        j=1
+        while j<14:
+            i=0
+            part=array[k]
+            part=part[0:15-j]
+            while i<len(array):
+                if bool and array[i].endswith(part) and i!=temp:
+                    underlaps.append(array[i])
+                    bool=False
+                    k=i
+                i+=1
+            j+=1
+        if k==temp:
+            break
+    return underlaps
+
+def assemble(seq):
+    lines=lineArray(seq)
+    underlaps=findUnderlaps(seq, 0)
+    start=lines.index(underlaps[len(underlaps)-1])
+    print findOverlaps(seq, start)
+    return
+
+assemble("testSeq.txt")
